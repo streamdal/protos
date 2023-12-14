@@ -709,6 +709,19 @@ class ResumeTailRequest(betterproto.Message):
 
 
 @dataclass(eq=False, repr=False)
+class GetPipelineHistoryRequest(betterproto.Message):
+    pipeline_id: str = betterproto.string_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class GetPipelineHistoryResponse(betterproto.Message):
+    entries: Dict[int, "Pipeline"] = betterproto.map_field(
+        1, betterproto.TYPE_INT32, betterproto.TYPE_MESSAGE
+    )
+    """Key == version"""
+
+
+@dataclass(eq=False, repr=False)
 class TestRequest(betterproto.Message):
     input: str = betterproto.string_field(1)
 
@@ -1681,6 +1694,23 @@ class ExternalStub(betterproto.ServiceStub):
             metadata=metadata,
         )
 
+    async def get_pipeline_history(
+        self,
+        get_pipeline_history_request: "GetPipelineHistoryRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "GetPipelineHistoryResponse":
+        return await self._unary_unary(
+            "/protos.External/GetPipelineHistory",
+            get_pipeline_history_request,
+            GetPipelineHistoryResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
     async def test(
         self,
         test_request: "TestRequest",
@@ -1992,6 +2022,11 @@ class ExternalBase(ServiceBase):
     ) -> "StandardResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
+    async def get_pipeline_history(
+        self, get_pipeline_history_request: "GetPipelineHistoryRequest"
+    ) -> "GetPipelineHistoryResponse":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
     async def test(self, test_request: "TestRequest") -> "TestResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
@@ -2229,6 +2264,14 @@ class ExternalBase(ServiceBase):
         response = await self.app_register_reject(request)
         await stream.send_message(response)
 
+    async def __rpc_get_pipeline_history(
+        self,
+        stream: "grpclib.server.Stream[GetPipelineHistoryRequest, GetPipelineHistoryResponse]",
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.get_pipeline_history(request)
+        await stream.send_message(response)
+
     async def __rpc_test(
         self, stream: "grpclib.server.Stream[TestRequest, TestResponse]"
     ) -> None:
@@ -2417,6 +2460,12 @@ class ExternalBase(ServiceBase):
                 grpclib.const.Cardinality.UNARY_UNARY,
                 AppRegisterRejectRequest,
                 StandardResponse,
+            ),
+            "/protos.External/GetPipelineHistory": grpclib.const.Handler(
+                self.__rpc_get_pipeline_history,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                GetPipelineHistoryRequest,
+                GetPipelineHistoryResponse,
             ),
             "/protos.External/Test": grpclib.const.Handler(
                 self.__rpc_test,

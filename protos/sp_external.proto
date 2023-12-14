@@ -91,6 +91,8 @@ service External {
 
   rpc AppRegisterReject(AppRegisterRejectRequest) returns (StandardResponse);
 
+  rpc GetPipelineHistory(GetPipelineHistoryRequest) returns (GetPipelineHistoryResponse);
+
   // Test method
   rpc Test(TestRequest) returns (TestResponse);
 }
@@ -314,6 +316,15 @@ message PauseTailRequest {
 
 message ResumeTailRequest {
   string tail_id = 1;
+}
+
+message GetPipelineHistoryRequest {
+  string pipeline_id = 1;
+}
+
+message GetPipelineHistoryResponse {
+  // Key == version
+  map<int32, protos.Pipeline> entries = 1;
 }
 
 message TestRequest {

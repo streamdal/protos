@@ -2,6 +2,8 @@ import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import type { TestResponse } from "./sp_external.js";
 import type { TestRequest } from "./sp_external.js";
+import type { GetPipelineHistoryResponse } from "./sp_external.js";
+import type { GetPipelineHistoryRequest } from "./sp_external.js";
 import type { AppRegisterRejectRequest } from "./sp_external.js";
 import type { AppVerifyRegistrationRequest } from "./sp_external.js";
 import type { AppRegistrationRequest } from "./sp_external.js";
@@ -213,6 +215,10 @@ export interface IExternalClient {
      */
     appRegisterReject(input: AppRegisterRejectRequest, options?: RpcOptions): UnaryCall<AppRegisterRejectRequest, StandardResponse>;
     /**
+     * @generated from protobuf rpc: GetPipelineHistory(protos.GetPipelineHistoryRequest) returns (protos.GetPipelineHistoryResponse);
+     */
+    getPipelineHistory(input: GetPipelineHistoryRequest, options?: RpcOptions): UnaryCall<GetPipelineHistoryRequest, GetPipelineHistoryResponse>;
+    /**
      * Test method
      *
      * @generated from protobuf rpc: Test(protos.TestRequest) returns (protos.TestResponse);
@@ -392,6 +398,10 @@ export declare class ExternalClient implements IExternalClient, ServiceInfo {
      * @generated from protobuf rpc: AppRegisterReject(protos.AppRegisterRejectRequest) returns (protos.StandardResponse);
      */
     appRegisterReject(input: AppRegisterRejectRequest, options?: RpcOptions): UnaryCall<AppRegisterRejectRequest, StandardResponse>;
+    /**
+     * @generated from protobuf rpc: GetPipelineHistory(protos.GetPipelineHistoryRequest) returns (protos.GetPipelineHistoryResponse);
+     */
+    getPipelineHistory(input: GetPipelineHistoryRequest, options?: RpcOptions): UnaryCall<GetPipelineHistoryRequest, GetPipelineHistoryResponse>;
     /**
      * Test method
      *

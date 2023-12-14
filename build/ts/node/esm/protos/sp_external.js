@@ -2015,6 +2015,120 @@ class ResumeTailRequest$Type extends MessageType {
  */
 export const ResumeTailRequest = new ResumeTailRequest$Type();
 // @generated message type with reflection information, may provide speed optimized methods
+class GetPipelineHistoryRequest$Type extends MessageType {
+    constructor() {
+        super("protos.GetPipelineHistoryRequest", [
+            { no: 1, name: "pipeline_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value) {
+        const message = { pipelineId: "" };
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+        let message = target !== null && target !== void 0 ? target : this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string pipeline_id */ 1:
+                    message.pipelineId = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message, writer, options) {
+        /* string pipeline_id = 1; */
+        if (message.pipelineId !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.pipelineId);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message protos.GetPipelineHistoryRequest
+ */
+export const GetPipelineHistoryRequest = new GetPipelineHistoryRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class GetPipelineHistoryResponse$Type extends MessageType {
+    constructor() {
+        super("protos.GetPipelineHistoryResponse", [
+            { no: 1, name: "entries", kind: "map", K: 5 /*ScalarType.INT32*/, V: { kind: "message", T: () => Pipeline } }
+        ]);
+    }
+    create(value) {
+        const message = { entries: {} };
+        globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
+        if (value !== undefined)
+            reflectionMergePartial(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader, length, options, target) {
+        let message = target !== null && target !== void 0 ? target : this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* map<int32, protos.Pipeline> entries */ 1:
+                    this.binaryReadMap1(message.entries, reader, options);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    binaryReadMap1(map, reader, options) {
+        let len = reader.uint32(), end = reader.pos + len, key, val;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case 1:
+                    key = reader.int32();
+                    break;
+                case 2:
+                    val = Pipeline.internalBinaryRead(reader, reader.uint32(), options);
+                    break;
+                default: throw new globalThis.Error("unknown map entry field for field protos.GetPipelineHistoryResponse.entries");
+            }
+        }
+        map[key !== null && key !== void 0 ? key : 0] = val !== null && val !== void 0 ? val : Pipeline.create();
+    }
+    internalBinaryWrite(message, writer, options) {
+        /* map<int32, protos.Pipeline> entries = 1; */
+        for (let k of Object.keys(message.entries)) {
+            writer.tag(1, WireType.LengthDelimited).fork().tag(1, WireType.Varint).int32(parseInt(k));
+            writer.tag(2, WireType.LengthDelimited).fork();
+            Pipeline.internalBinaryWrite(message.entries[k], writer, options);
+            writer.join().join();
+        }
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message protos.GetPipelineHistoryResponse
+ */
+export const GetPipelineHistoryResponse = new GetPipelineHistoryResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
 class TestRequest$Type extends MessageType {
     constructor() {
         super("protos.TestRequest", [
@@ -2142,5 +2256,6 @@ export const External = new ServiceType("protos.External", [
     { name: "AppRegister", options: {}, I: AppRegistrationRequest, O: StandardResponse },
     { name: "AppVerifyRegistration", options: {}, I: AppVerifyRegistrationRequest, O: StandardResponse },
     { name: "AppRegisterReject", options: {}, I: AppRegisterRejectRequest, O: StandardResponse },
+    { name: "GetPipelineHistory", options: {}, I: GetPipelineHistoryRequest, O: GetPipelineHistoryResponse },
     { name: "Test", options: {}, I: TestRequest, O: TestResponse }
 ]);

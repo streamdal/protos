@@ -505,6 +505,28 @@ export interface ResumeTailRequest {
     tailId: string;
 }
 /**
+ * @generated from protobuf message protos.GetPipelineHistoryRequest
+ */
+export interface GetPipelineHistoryRequest {
+    /**
+     * @generated from protobuf field: string pipeline_id = 1;
+     */
+    pipelineId: string;
+}
+/**
+ * @generated from protobuf message protos.GetPipelineHistoryResponse
+ */
+export interface GetPipelineHistoryResponse {
+    /**
+     * Key == version
+     *
+     * @generated from protobuf field: map<int32, protos.Pipeline> entries = 1;
+     */
+    entries: {
+        [key: number]: Pipeline;
+    };
+}
+/**
  * @generated from protobuf message protos.TestRequest
  */
 export interface TestRequest {
@@ -917,6 +939,27 @@ declare class ResumeTailRequest$Type extends MessageType<ResumeTailRequest> {
  * @generated MessageType for protobuf message protos.ResumeTailRequest
  */
 export declare const ResumeTailRequest: ResumeTailRequest$Type;
+declare class GetPipelineHistoryRequest$Type extends MessageType<GetPipelineHistoryRequest> {
+    constructor();
+    create(value?: PartialMessage<GetPipelineHistoryRequest>): GetPipelineHistoryRequest;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetPipelineHistoryRequest): GetPipelineHistoryRequest;
+    internalBinaryWrite(message: GetPipelineHistoryRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message protos.GetPipelineHistoryRequest
+ */
+export declare const GetPipelineHistoryRequest: GetPipelineHistoryRequest$Type;
+declare class GetPipelineHistoryResponse$Type extends MessageType<GetPipelineHistoryResponse> {
+    constructor();
+    create(value?: PartialMessage<GetPipelineHistoryResponse>): GetPipelineHistoryResponse;
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: GetPipelineHistoryResponse): GetPipelineHistoryResponse;
+    private binaryReadMap1;
+    internalBinaryWrite(message: GetPipelineHistoryResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter;
+}
+/**
+ * @generated MessageType for protobuf message protos.GetPipelineHistoryResponse
+ */
+export declare const GetPipelineHistoryResponse: GetPipelineHistoryResponse$Type;
 declare class TestRequest$Type extends MessageType<TestRequest> {
     constructor();
     create(value?: PartialMessage<TestRequest>): TestRequest;

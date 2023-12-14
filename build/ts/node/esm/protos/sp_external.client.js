@@ -263,12 +263,19 @@ export class ExternalClient {
         return stackIntercept("unary", this._transport, method, opt, input);
     }
     /**
+     * @generated from protobuf rpc: GetPipelineHistory(protos.GetPipelineHistoryRequest) returns (protos.GetPipelineHistoryResponse);
+     */
+    getPipelineHistory(input, options) {
+        const method = this.methods[30], opt = this._transport.mergeOptions(options);
+        return stackIntercept("unary", this._transport, method, opt, input);
+    }
+    /**
      * Test method
      *
      * @generated from protobuf rpc: Test(protos.TestRequest) returns (protos.TestResponse);
      */
     test(input, options) {
-        const method = this.methods[30], opt = this._transport.mergeOptions(options);
+        const method = this.methods[31], opt = this._transport.mergeOptions(options);
         return stackIntercept("unary", this._transport, method, opt, input);
     }
 }

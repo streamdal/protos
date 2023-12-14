@@ -241,6 +241,25 @@ class GetNotificationsResponse(_message.Message):
     notifications: _containers.MessageMap[str, _sp_notify_pb2.NotificationConfig]
     def __init__(self, notifications: _Optional[_Mapping[str, _sp_notify_pb2.NotificationConfig]] = ...) -> None: ...
 
+class GetPipelineHistoryRequest(_message.Message):
+    __slots__ = ["pipeline_id"]
+    PIPELINE_ID_FIELD_NUMBER: _ClassVar[int]
+    pipeline_id: str
+    def __init__(self, pipeline_id: _Optional[str] = ...) -> None: ...
+
+class GetPipelineHistoryResponse(_message.Message):
+    __slots__ = ["entries"]
+    class EntriesEntry(_message.Message):
+        __slots__ = ["key", "value"]
+        KEY_FIELD_NUMBER: _ClassVar[int]
+        VALUE_FIELD_NUMBER: _ClassVar[int]
+        key: int
+        value: _sp_pipeline_pb2.Pipeline
+        def __init__(self, key: _Optional[int] = ..., value: _Optional[_Union[_sp_pipeline_pb2.Pipeline, _Mapping]] = ...) -> None: ...
+    ENTRIES_FIELD_NUMBER: _ClassVar[int]
+    entries: _containers.MessageMap[int, _sp_pipeline_pb2.Pipeline]
+    def __init__(self, entries: _Optional[_Mapping[int, _sp_pipeline_pb2.Pipeline]] = ...) -> None: ...
+
 class GetPipelineRequest(_message.Message):
     __slots__ = ["pipeline_id"]
     PIPELINE_ID_FIELD_NUMBER: _ClassVar[int]
