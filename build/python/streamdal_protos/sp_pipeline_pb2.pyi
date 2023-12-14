@@ -20,14 +20,20 @@ PIPELINE_STEP_CONDITION_NOTIFY: PipelineStepCondition
 PIPELINE_STEP_CONDITION_UNSET: PipelineStepCondition
 
 class Pipeline(_message.Message):
-    __slots__ = ["id", "name", "steps"]
+    __slots__ = ["created_at", "id", "name", "steps", "updated_at", "version"]
+    CREATED_AT_FIELD_NUMBER: _ClassVar[int]
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     STEPS_FIELD_NUMBER: _ClassVar[int]
+    UPDATED_AT_FIELD_NUMBER: _ClassVar[int]
+    VERSION_FIELD_NUMBER: _ClassVar[int]
+    created_at: int
     id: str
     name: str
     steps: _containers.RepeatedCompositeFieldContainer[PipelineStep]
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., steps: _Optional[_Iterable[_Union[PipelineStep, _Mapping]]] = ...) -> None: ...
+    updated_at: int
+    version: int
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., steps: _Optional[_Iterable[_Union[PipelineStep, _Mapping]]] = ..., version: _Optional[int] = ..., created_at: _Optional[int] = ..., updated_at: _Optional[int] = ...) -> None: ...
 
 class PipelineStep(_message.Message):
     __slots__ = ["_wasm_bytes", "_wasm_function", "_wasm_id", "custom", "decode", "detective", "encode", "http_request", "infer_schema", "kv", "name", "on_failure", "on_success", "transform", "valid_json"]

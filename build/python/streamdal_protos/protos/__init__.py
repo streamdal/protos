@@ -283,6 +283,15 @@ class Pipeline(betterproto.Message):
     steps: List["PipelineStep"] = betterproto.message_field(3)
     """One or more steps to execute"""
 
+    version: int = betterproto.int32_field(4)
+    """Incremented by server on each update"""
+
+    created_at: int = betterproto.int64_field(5)
+    """Created at timestamp (set by server)"""
+
+    updated_at: int = betterproto.int64_field(6)
+    """Modified by server on each update"""
+
 
 @dataclass(eq=False, repr=False)
 class PipelineStep(betterproto.Message):

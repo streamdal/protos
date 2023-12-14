@@ -27,6 +27,15 @@ message Pipeline {
 
   // One or more steps to execute
   repeated PipelineStep steps = 3;
+
+  // Incremented by server on each update
+  int32 version = 4;
+
+  // Created at timestamp (set by server)
+  int64 created_at = 5;
+
+  // Modified by server on each update
+  int64 updated_at = 6;
 }
 
 // A condition defines how the SDK should handle a step response -- should it

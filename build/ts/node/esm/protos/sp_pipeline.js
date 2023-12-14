@@ -50,11 +50,14 @@ class Pipeline$Type extends MessageType {
         super("protos.Pipeline", [
             { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "steps", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => PipelineStep }
+            { no: 3, name: "steps", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => PipelineStep },
+            { no: 4, name: "version", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 5, name: "created_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ },
+            { no: 6, name: "updated_at", kind: "scalar", T: 3 /*ScalarType.INT64*/ }
         ]);
     }
     create(value) {
-        const message = { id: "", name: "", steps: [] };
+        const message = { id: "", name: "", steps: [], version: 0, createdAt: "0", updatedAt: "0" };
         globalThis.Object.defineProperty(message, MESSAGE_TYPE, { enumerable: false, value: this });
         if (value !== undefined)
             reflectionMergePartial(this, message, value);
@@ -73,6 +76,15 @@ class Pipeline$Type extends MessageType {
                     break;
                 case /* repeated protos.PipelineStep steps */ 3:
                     message.steps.push(PipelineStep.internalBinaryRead(reader, reader.uint32(), options));
+                    break;
+                case /* int32 version */ 4:
+                    message.version = reader.int32();
+                    break;
+                case /* int64 created_at */ 5:
+                    message.createdAt = reader.int64().toString();
+                    break;
+                case /* int64 updated_at */ 6:
+                    message.updatedAt = reader.int64().toString();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -95,6 +107,15 @@ class Pipeline$Type extends MessageType {
         /* repeated protos.PipelineStep steps = 3; */
         for (let i = 0; i < message.steps.length; i++)
             PipelineStep.internalBinaryWrite(message.steps[i], writer.tag(3, WireType.LengthDelimited).fork(), options).join();
+        /* int32 version = 4; */
+        if (message.version !== 0)
+            writer.tag(4, WireType.Varint).int32(message.version);
+        /* int64 created_at = 5; */
+        if (message.createdAt !== "0")
+            writer.tag(5, WireType.Varint).int64(message.createdAt);
+        /* int64 updated_at = 6; */
+        if (message.updatedAt !== "0")
+            writer.tag(6, WireType.Varint).int64(message.updatedAt);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

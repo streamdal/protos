@@ -40,6 +40,24 @@ export interface Pipeline {
      * @generated from protobuf field: repeated protos.PipelineStep steps = 3;
      */
     steps: PipelineStep[];
+    /**
+     * Incremented by server on each update
+     *
+     * @generated from protobuf field: int32 version = 4;
+     */
+    version: number;
+    /**
+     * Created at timestamp (set by server)
+     *
+     * @generated from protobuf field: int64 created_at = 5;
+     */
+    createdAt: string;
+    /**
+     * Modified by server on each update
+     *
+     * @generated from protobuf field: int64 updated_at = 6;
+     */
+    updatedAt: string;
 }
 /**
  * A pipeline step is a single step in a pipeline.
