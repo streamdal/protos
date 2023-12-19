@@ -2,7 +2,7 @@
 [![Build Status](https://github.com/streamdal/protos/actions/workflows/release.yml/badge.svg)](https://github.com/streamdal/protos/actions/workflows/release.yml)
 <a href="https://crates.io/crates/streamdal-protos/"><img src="https://img.shields.io/crates/v/streamdal-protos.svg"></a>
 
-# [THIS REPO HAS MOVED!](github.com/streamdal/mono)
+# [THIS REPO HAS MOVED!](https://github.com/streamdal/mono)
 
 This repo contains the common protobuf definitions for all of the streamdal server+SDK related
 components.
